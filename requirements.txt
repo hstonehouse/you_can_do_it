@@ -1,0 +1,12 @@
+bcrypt
+cffi
+click
+Flask
+gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
+psycopg2
+pycparser
+six
+Werkzeug
