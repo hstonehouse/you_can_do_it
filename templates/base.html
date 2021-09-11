@@ -15,7 +15,24 @@
     {% block content %}
     
     {% if user_id %}
+    <div class = "homepage_button">
+        <form action="/set-goals">
+        <input type="submit" value = "Set Your Goals" class = 'specialfont'>
+        </form>
+    </div>
 
+    <div class = "homepage_button">
+        <form action="/add_friends">
+        <input type="submit" value = "Add Friends" class = 'specialfont'>
+        </form>
+    </div>
+
+    <div class = "homepage_button">
+        <form action="/log_out">
+        <input type="submit" value = "Log Out" class = 'specialfont'>
+         </form>
+    </div>
+    
     {% else %}
     <div class = "homepage_button">
     <form action="/log_in">

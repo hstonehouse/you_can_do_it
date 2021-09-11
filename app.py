@@ -4,6 +4,8 @@ import os
 import psycopg2
 import bcrypt
 
+from models.select_things import all_goals
+
 DB_URL = os.environ.get("DATABASE_URL", "dbname=accountability_db")
 
 app = Flask(__name__)
@@ -17,6 +19,33 @@ def index():
     cur.execute('SELECT 1', []) # Query to check that the DB connected
     conn.close()
     return render_template('base.html', user_id = user_id)
+
+@app.route('/signup')
+def signup():
+    user_id = session.get('user_id')
+    if user_id:
+         return redirect('/')
+    else:
+        return render_template('signup.html')
+
+@app.route('/signup_action', methods=['POST'])
+def signup_action():
+    email = request.form.get('email')
+    name = request.form.get('username')
+    password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+    if password == confirm_password:
+        password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        sql_write("INSERT INTO users (email, name, password_hash) VALUES (%s, %s, %s)", [email, name, password_hash])
+        return redirect('/log_in')
+    else:
+        mismatch = True
+        return render_template('signup.html', mismatch = mismatch)
+
+@app.route('/log_out')
+def log_out():
+    del session['user_id']
+    return redirect('/')
 
 @app.route('/log_in')
 def log_in():
@@ -43,27 +72,16 @@ def log_in_action():
             invalid_user = True
             return render_template('base.html', invalid_user = invalid_user)
 
-@app.route('/signup')
-def signup():
-    user_id = session.get('user_user_')
-    if user_id:
-         return redirect('/')
-    else:
-        return render_template('signup.html')
+@app.route('/set-goals')
+def add_edit_delete():
+    return render_template('set-goals.html')
 
-@app.route('/signup_action', methods=['POST'])
-def signup_action():
-    email = request.form.get('email')
-    name = request.form.get('username')
-    password = request.form.get('password')
-    confirm_password = request.form.get('confirm_password')
-    if password == confirm_password:
-        password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        sql_write("INSERT INTO users (email, name, password_hash) VALUES (%s, %s, %s)", [email, name, password_hash])
-        return redirect('/log_in')
-    else:
-        mismatch = True
-        return render_template('signup.html', mismatch = mismatch)
+@app.route('/add_goal_action', methods=['POST'])
+def add_new_goal():
+    user_id = session.get('user_id')
+    goal_content = request.form.get('newgoal')
+    sql_write("INSERT INTO goals (user_id, goal) VALUES (%s, %s)", [user_id, goal_content])
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)

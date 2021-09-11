@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/save_goal_edits" method="POST">
+
+    Goal: <input type="text" name="goal_content" value = {{goals.goal}}> <br>
+    
+    <input type="hidden" name = "goal_id" value = {{goals.id}}>
+    <input type="submit">
+
+</form>
+
+{% endblock content %}
