@@ -1,0 +1,17 @@
+h1 {
+    font-size: 50px;
+    font-family: 'Amatic SC', cursive;
+}
+
+.specialfont {
+    font-family: 'Amatic SC', cursive;
+    font-size: 30px;
+}
+
+.homepage_button {
+    display: inline-block
+}
+
+.invalid {
+    color: red;
+}

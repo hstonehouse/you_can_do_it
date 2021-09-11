@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if invalid_user %}
+<p class = "invalid">Email address or password is incorrect.</p>
+{% endif %}
+
+<h3 class = 'specialfont'>Log In</h3>
+<form action="/log_in_action" method = 'POST'>
+    Email: <input type="text" name = "email" id = "email" required> <br>
+    Password: <input type="password" name = "password" required>
+    <input type="submit" class = 'specialfont'>
+</form>
+{% endblock content %}

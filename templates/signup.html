@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class = 'specialfont'>Sign Up</h3>
+<form action="/signup_action" method="POST">
+    Email: <input type="text" name = "email" required><br>
+    Name: <input type="text" name = "username" required><br>
+    Password: <input type="password" name = "password" required><br>
+    Confirm Password: <input type="password" name = "confirm_password" required><br>
+    <input type="submit" value = "Register" class = 'specialfont'>
+</form>
+{% if mismatch %}
+    <p class = invalid>Your passwords do not match.</p>
+{% endif %}
+
+{% endblock  %}

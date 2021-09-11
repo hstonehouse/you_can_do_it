@@ -1,4 +1,4 @@
-https://hstonehouse.github.io/accountability_app/
+https://youcandoit-app.herokuapp.com/
 
 YOU CAN DO IT!
 We are more likely to achieve our goals when we have an accountability partner.

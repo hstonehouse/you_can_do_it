@@ -5,19 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You Can Do It</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+    </style>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <h1>You Can Do It!</h1>
     {% block content %}
+    
+    {% if user_id %}
 
-    <h3>Please Log In</h3>
-    <form action="/log_in_action" method = 'POST'>
-        Email: <input type="text" name = "email" id = "email" required> <br>
-        Password: <input type="password" name = "password" required>
-        <input type="submit">
+    {% else %}
+    <div class = "homepage_button">
+    <form action="/log_in">
+        <input type="submit" value = "Log In" class = 'specialfont'>
     </form>
-    <p>Don't have an account? <a href="/signup">Sign Up Here</a></p>
-
+    </div>
+    <div class = "homepage_button">
+      <form action="/signup">
+        <input type="submit" value = "Sign Up" class = 'specialfont'>
+    </form>
+    </div>
+    
+    {% endif %}
     {% endblock  %}
 </body>
 </html>
