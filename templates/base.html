@@ -12,15 +12,9 @@
 </head>
 <body>
     <h1>You Can Do It!</h1>
-    {% block content %}
+   
     
     {% if user_id %}
-    <div class = "homepage_button">
-        <form action="/set-goals">
-        <input type="submit" value = "Set Your Goals" class = 'specialfont'>
-        </form>
-    </div>
-
     <div class = "homepage_button">
         <form action="/add_friends">
         <input type="submit" value = "Add Friends" class = 'specialfont'>
@@ -32,7 +26,7 @@
         <input type="submit" value = "Log Out" class = 'specialfont'>
          </form>
     </div>
-    
+
     {% else %}
     <div class = "homepage_button">
     <form action="/log_in">
@@ -44,8 +38,36 @@
         <input type="submit" value = "Sign Up" class = 'specialfont'>
     </form>
     </div>
-    
+
     {% endif %}
-    {% endblock  %}
+
+    {% block content %}
+
+    {% if user_id %}
+    <section class = "goals">
+        {% for goal in goals %}
+        <p><a href="/edit/{{goal.id}}" class = 'specialfont'>{{goal.goal_content}}</a></p>
+       
+        {% if goal.who_nudged %}
+        <p>{{goal.who_nudged}}</p>
+        else
+        <p> </p>
+
+        {% endif %}
+   
+        {% endfor %}
+    
+    </section>
+   
+    <div class = "homepage_button">
+        <form action="/add_goal_action" method = 'POST'>
+            Add a new goal: <input type="text" name = "newgoal" id = "newgoal" required> <br>
+            <input type="submit" class = 'specialfont'>
+        </form>
+    </div>
+     
+    {% endif %}
+
+    {% endblock %}
 </body>
 </html>

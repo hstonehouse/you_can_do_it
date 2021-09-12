@@ -2,7 +2,7 @@ from database import sql_select
 
 def all_goals(user_id):
     results = []
-    results = sql_select(f"SELECT goals.id, user_id, goal, nudged_by, name FROM goals INNER JOIN users ON {user_id} = user_id")
+    results = sql_select("SELECT goals.id, user_id, goal, nudged_by, name FROM goals INNER JOIN users ON user_id = %s", [user_id])
     goals = []
     for result in results:
         goals.append({

@@ -1,9 +1,9 @@
 import psycopg2
 
-def sql_select(query):
+def sql_select(query, params):
   conn = psycopg2.connect("dbname=accountability_db")
   cur = conn.cursor()
-  cur.execute(query)
+  cur.execute(query, params)
   results = cur.fetchall()
   cur.close()
   conn.close()

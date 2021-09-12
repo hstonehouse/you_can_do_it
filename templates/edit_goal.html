@@ -2,12 +2,22 @@
 {% block content %}
 
 <form action="/save_goal_edits" method="POST">
-
-    Goal: <input type="text" name="goal_content" value = {{goals.goal}}> <br>
-    
-    <input type="hidden" name = "goal_id" value = {{goals.id}}>
+    Goal: <input type="text" name="goal_content" value = "{{goal_content}}"> <br>
+    <input type="hidden" name = "goal_id" value = {{goal_id}}>
     <input type="submit">
-
 </form>
+
+{% if nudged_by %}
+<form action="/delete_nudge/{{goal_id}}" method="DELETE">
+    <input type="text" name="who_nudged" value = "{{nudged_by}}">
+    <input type="submit" value = "Delete Nudge" class = 'specialfont'>
+</form>
+{% endif %}
+
+<form action="/delete_goal/{{goal_id}}" method="DELETE">
+    <input type="submit" value = "Delete Goal" class = 'specialfont'>
+</form>
+
+
 
 {% endblock content %}

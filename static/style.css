@@ -15,3 +15,7 @@ h1 {
 .invalid {
     color: red;
 }
+
+a {
+    text-decoration: none;
+}
