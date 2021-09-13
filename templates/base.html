@@ -8,12 +8,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
     </style>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h1>You Can Do It!</h1>
-   
-    
+       
     {% if user_id %}
     <div class = "homepage_button">
         <form action="/add_friends">
@@ -53,8 +52,8 @@
         <p><a href="/edit/{{goal.id}}" class = 'specialfont'>{{goal.goal_content}}</a></p>
        
         {% if goal.who_nudged %}
-        <p>{{goal.who_nudged}}</p>
-        else
+        <p>{{goal.who_nudged}} nudged you!</p>
+        {% else %}
         <p> </p>
         {% endif %}
    

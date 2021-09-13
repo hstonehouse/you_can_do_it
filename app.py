@@ -3,7 +3,6 @@ from database import sql_select, sql_write
 import os
 import psycopg2
 import bcrypt
-import requests
 
 from models.goal import all_goals
 from models.friend import all_friends
@@ -155,7 +154,16 @@ def show_friends_goals(friend_id):
         return redirect('/')
     else:
         friend_goals = all_goals(friend_id)        
-        return render_template('friend_goals.html', user_id = user_id, friend_goals = friend_goals)
+        return render_template('friend_goals.html', user_id = user_id, friend_goals = friend_goals, friend_id = friend_id)
+
+@app.route('/goals/<friend_id>/<goal_id>/nudge', methods = ['POST'])
+def nudge(friend_id, goal_id):
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect('/')
+    else:
+        sql_write("UPDATE goals SET nudged_by = %s WHERE id = %s", [user_id, goal_id])
+    return redirect(f'/goals/{friend_id}/')
 
 if __name__ == "__main__":
     app.run(debug=True)

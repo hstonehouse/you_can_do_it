@@ -4,7 +4,7 @@
 {% for friend in friend_names %}
 
 <form action="/goals/{{friend.id}}">
-    <a href="/goals/{{friend.id}}">{{friend.name}}</a>
+    <a href="/goals/{{friend.id}}" class = 'specialfont'>{{friend.name}}</a>
     <input type="hidden" name = "id" value = {{friend.id}}>
 </form>
 
