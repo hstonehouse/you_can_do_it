@@ -44,6 +44,10 @@
     {% block content %}
 
     {% if user_id %}
+    <form action="/your_friends">
+        <input type="submit" value = "Check Up On Your Friends!" class = 'specialfont'>
+    </form>
+
     <section class = "goals">
         {% for goal in goals %}
         <p><a href="/edit/{{goal.id}}" class = 'specialfont'>{{goal.goal_content}}</a></p>
@@ -52,7 +56,6 @@
         <p>{{goal.who_nudged}}</p>
         else
         <p> </p>
-
         {% endif %}
    
         {% endfor %}

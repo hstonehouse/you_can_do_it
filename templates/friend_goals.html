@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for goal in friend_goals %}
+<p>{{goal.goal_content}}</p>
+<form action="/goals/{{goal.id}}/nudge">
+    <input type="submit" value = "Nudge!">
+    <input type="hidden" name = "id" value = {{goal.id}}>
+</form>
+
+{% endfor %}
+
+{% endblock content %}

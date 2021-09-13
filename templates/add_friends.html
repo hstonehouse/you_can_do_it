@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if invalid_email %}
+    <p class = 'invalid'>We couldn't find that friend. Please try again.</p>
+{% endif %}
+{% if user_id %}
+<form action="/add_friend_action" method = 'POST'>
+    Enter friend's email: <input type="text" name = "new_friend" id = "new_friend" required> <br>
+    <input type="submit" class = 'specialfont'>
+</form>
+
+{% else %}
+<p class = 'specialfont'>Please log in or sign up to add a friend.</p>
+
+{% endif %}
 
 {% endblock content %}
