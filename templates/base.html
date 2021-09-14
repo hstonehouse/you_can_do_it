@@ -11,31 +11,35 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>You Can Do It!</h1>
-       
-    {% if user_id %}
-    <div class = "homepage_button">
-        <form action="/add_friends">
-        <input type="submit" value = "Add Friends" class = 'specialfont'>
-        </form>
-    </div>
-
-    <div class = "homepage_button">
-        <form action="/log_out">
-        <input type="submit" value = "Log Out" class = 'specialfont'>
-         </form>
-    </div>
+    <nav>
+        <h1>You Can Do It!</h1>
+        
+        {% if user_id %}
+        <div class = "homepage_button">
+            <form action="/add_friends">
+            <input type="submit" value = "Add Friends" class = 'specialfont'>
+            </form>
+  
+            <form action="/log_out">
+            <input type="submit" value = "Log Out" class = 'specialfont'>
+            </form>
+        </div>
+    </nav>
 
     {% else %}
     <div class = "homepage_button">
     <form action="/log_in">
         <input type="submit" value = "Log In" class = 'specialfont'>
     </form>
-    </div>
-    <div class = "homepage_button">
+
       <form action="/signup">
         <input type="submit" value = "Sign Up" class = 'specialfont'>
     </form>
+    </div>
+
+    <div class = "homepage_body">
+        <h2 class = 'invalid'>Please log in or sign up.</h2>
+        <img src="/static/possum.jpg" alt="Positive possum believes you can do the thing!" id = "possum">
     </div>
 
     {% endif %}

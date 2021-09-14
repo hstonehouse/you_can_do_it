@@ -1,6 +1,17 @@
+nav {
+    display: grid;
+    grid-template-columns: 60% 20%;
+}
+
 h1 {
     font-size: 80px;
     font-family: 'Amatic SC', cursive;
+    text-align: center;
+    margin-left: 300px;
+}
+
+h2 {
+    text-align: center;
 }
 
 .specialfont {
@@ -9,7 +20,19 @@ h1 {
 }
 
 .homepage_button {
-    display: inline-block
+    display: flex;
+    margin-top: 95px;
+}
+
+#possum {
+    max-width: 35em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form {
+    margin-right: 10px;
 }
 
 .invalid {
@@ -19,3 +42,4 @@ h1 {
 a {
     text-decoration: none;
 }
+

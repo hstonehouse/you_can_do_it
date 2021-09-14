@@ -7,8 +7,6 @@ import bcrypt
 from models.goal import all_goals
 from models.friend import all_friends
 
-DB_URL = os.environ.get("DATABASE_URL", "dbname=accountability_db")
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'String for testing purposes'
 
