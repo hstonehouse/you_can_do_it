@@ -31,6 +31,10 @@ h2, .goal {
     justify-content: center;
 }
 
+.yellow {
+    color: yellow;
+}
+
 .specialfont {
     font-family: 'Amatic SC', cursive;
     font-size: 30px;
@@ -110,7 +114,7 @@ a {
     margin-left: 5px
 }
 
-#edit-goal-form, #delete-nudge-form {
+#edit-goal-form, #delete-nudge-form, #add-friend-form > input {
     margin-bottom: 20px;
 }
 
@@ -145,4 +149,12 @@ a {
     padding-left: 100px;
     padding-right: 100px;
     color: red;
+}
+
+#add-friend-form .label {
+    padding-right: 5px
+}
+
+#add-friend-button {
+    padding: 0px 100px;
 }

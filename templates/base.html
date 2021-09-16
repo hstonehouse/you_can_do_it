@@ -58,14 +58,13 @@
 
             <section>
                 {% for goal in goals %}
-                <p class="goal"><a href="/edit/{{goal.id}}">{{goal.goal_content}}</a></p>
-            
-                {% if goal.who_nudged %}
-                <p>{{goal.who_nudged}} nudged you!</p>
-                {% else %}
-                <p> </p>
-                {% endif %}
-        
+                <p class="goal"><a href="/edit/{{goal.id}}">{{goal.goal_content}}</a>
+                    {% if goal.who_nudged %}
+                    <span class="yellow">{{goal.who_nudged}} nudged you!</span>
+                    {% else %}
+                    <span> </span>
+                    {% endif %}
+                </p>
                 {% endfor %}
             </section>
         </div>

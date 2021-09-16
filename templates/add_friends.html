@@ -8,11 +8,11 @@
 <div class="form">
     <form action="/add_friend_action" method = 'POST' id="add-friend-form">
         <span class="label">Enter friend's email:</span><input type="text" name="new_friend" id="new-friend" required> <br>
-        <input type="submit" class="specialfont">
+        <input type="submit" class="specialfont" value="Add Friend!" id="add-friend-button">
     </form>
 </div>
 {% else %}
-<p class="specialfont, invalid">Please log in or sign up to add a friend.</p>
+<p class="invalid">Please log in or sign up to add a friend.</p>
 
 {% endif %}
 
