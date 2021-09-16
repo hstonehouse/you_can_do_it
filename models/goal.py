@@ -19,3 +19,14 @@ def all_goals(user_id):
         })
     return (goals)
 
+def one_goal(id):
+    results = sql_select("""SELECT goal, nudged_users.name 
+            FROM goals LEFT JOIN users AS nudged_users ON nudged_by = nudged_users.id 
+            WHERE goals.id = (%s)""", [id])
+    goal = []
+    for result in results:
+        goal.append({
+            "content": result[0],
+            "who_nudged": result[1]
+        })
+    return goal[0]

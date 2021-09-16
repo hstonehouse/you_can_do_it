@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, session
 from database import sql_select, sql_write
-import os
 import psycopg2
 import bcrypt
 
-from models.goal import all_goals
+from models.goal import all_goals, one_goal
 from models.friend import all_friends
+from models.name import my_name
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'String for testing purposes'
@@ -16,8 +16,9 @@ def index():
     if user_id:
         goals = all_goals(user_id)
         return render_template('base.html', user_id = user_id, goals = goals)
-    else:
-        return render_template('base.html')
+    if not user_id:
+        no_user_id = True
+        return render_template('base.html', no_user_id = no_user_id)
 
 @app.route('/signup')
 def signup():
@@ -58,31 +59,26 @@ def log_in():
 def log_in_action(): 
     email = request.form.get('email')
     password = request.form.get('password')
-
-    conn = psycopg2.connect("dbname=accountability_db")
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM users WHERE email = (%s)", [email])
-    user_details = cur.fetchall()
+   
+    user_details = sql_select("SELECT * FROM users WHERE email = (%s)", [email])
     if user_details:
         user_id = user_details[0][0]
         password_hash = user_details[0][3]
         valid = bcrypt.checkpw(password.encode(), password_hash.encode())
         if valid:
             session['user_id'] = user_id
-            conn.close()
             return redirect('/')
-        else:
-            invalid_user = True
-            return render_template('base.html', invalid_user = invalid_user)
+    
+    invalid_user = True
+    return render_template('login.html', invalid_user = invalid_user)
 
 @app.route('/edit/<id>')
 def edit_goal(id):
     user_id = session.get('user_id') # I also need this in order for the 'global' buttons to show up (add friend, log out)
     if not user_id:
         return redirect('/')
-    results = sql_select("SELECT goal, nudged_by from goals WHERE id = (%s)", [id])
-    goal_content, nudged_by = results[0] # results returns a LIST of tuples so you need to manually select the first one
-    return render_template('edit_goal.html', user_id = user_id, goal_id = id, goal_content = goal_content, nudged_by = nudged_by)
+    goal = one_goal(id)
+    return render_template('edit_goal.html', user_id = user_id, goal_id = id, goal = goal)
 
 @app.route('/save_goal_edits', methods=['POST'])
 def save_goal_edits():
@@ -128,7 +124,7 @@ def add_friend_action():
     if friend_id and user_id:
         sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [user_id, friend_id])
         sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [friend_id, user_id])
-        return redirect('/')
+        return redirect('/your_friends')
     else:
         user_id = session.get('user_id')
         invalid_email = True
@@ -137,11 +133,12 @@ def add_friend_action():
 @app.route('/your_friends')
 def your_friends():
     user_id = session.get('user_id')
+    name = my_name(user_id)
     if not user_id:
         return redirect('/')
     else:
         friend_names = all_friends(user_id)
-        return render_template('your_friends.html', friend_names = friend_names, user_id = user_id)
+        return render_template('your_friends.html', friend_names = friend_names, user_id = user_id, name = name)
 
 @app.route('/goals/<friend_id>/')
 def show_friends_goals(friend_id):

@@ -1,21 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-
-<form action="/save_goal_edits" method="POST">
-    Goal: <input type="text" name="goal_content" value = "{{goal_content}}"> <br>
-    <input type="hidden" name = "goal_id" value = {{goal_id}}>
-    <input type="submit" value = "Update">
-</form>
-
-{% if nudged_by %}
-<form action="/delete_nudge/{{goal_id}}" method="POST">
-    <input type="text" name="who_nudged" value = "{{nudged_by}}">
-    <input type="submit" value = "Delete Nudge" class = 'specialfont'>
-</form>
+<div class="form" id="edit-goal-form">
+    <form action="/save_goal_edits" method="POST" id="edit-goal">
+        <span class="label">Goal:</span><input type="text" name="goal_content" id="edit-goal-content" value = "{{goal.content}}">
+        <input type="hidden" name = "goal_id" value = {{goal_id}}>
+        <input type="submit" value = "Update" id="update-button">
+    </form>
+</div>
+{% if goal.who_nudged %}
+<div class="form" id="delete-nudge-form">
+    <form action="/delete_nudge/{{goal_id}}" method="POST" id="delete-nudge">
+        <span class="label">Nudged by:</span><input type="text" name="who_nudged" id="delete-nudge-content" value = "{{goal.who_nudged}}">
+        <input type="submit" value = "Delete Nudge" id="delete-nudge-button">
+    </form>
+</div>
 {% endif %}
 
-<form action="/delete_goal/{{goal_id}}" method="POST">
-    <input type="submit" value = "Delete Goal" class = 'specialfont'>
-</form>
-
+<div class="form">
+    <form action="/delete_goal/{{goal_id}}" method="POST" id="delete-goal-form">
+        <input type="submit" value = "Delete Goal" class = "specialfont" id="delete-goal-button">
+    </form>
+</div>
 {% endblock content %}

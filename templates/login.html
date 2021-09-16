@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if invalid_user %}
-<p class = "invalid">Email address or password is incorrect.</p>
-{% endif %}
-
-<h3 class = 'specialfont'>Log In</h3>
-<form action="/log_in_action" method = 'POST'>
-    Email: <input type="text" name = "email" id = "email" required> <br>
-    Password: <input type="password" name = "password" required>
-    <input type="submit" class = 'specialfont'>
-</form>
+    <h3 class='specialfont' id="subheader">Log In</h3>
+    {% if invalid_user %}
+    <div>
+        <p class = "invalid">Email address or password is incorrect.</p>
+    </div>
+    {% endif %}
+    <div class="form">
+        <form action="/log_in_action" method = 'POST' id="login-form">
+                <div><span class="label"> Email: </span> <input type="text" name = "email" id = "email" required></div>
+                <div><span class="label"> Password: </span> <input type="password" name = "password" required></div>
+                <input type="submit" class = 'specialfont' value = "Log In">
+        </form>
+    </div>
 {% endblock content %}

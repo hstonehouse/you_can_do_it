@@ -11,69 +11,75 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <nav>
-        <h1>You Can Do It!</h1>
-        
+    <main>
+        <nav>
+            <h1>You Can Do It!</h1>
+            
+            {% if user_id %}
+            <div class = "homepage-button-div">
+                <form action="/add_friends" class="homepage-button">
+                    <input type="submit" value = "Add Friends" class = 'specialfont'>
+                </form>
+
+                <form action="/log_out" class="homepage-button">
+                    <input type="submit" value = "Log Out" class = 'specialfont'>
+                </form>
+            </div>
+            {% else %}
+            <div class = "homepage-button-div">
+                <form action="/log_in" class="homepage-button">
+                    <input type="submit" value = "Log In" class = 'specialfont'>
+                </form>
+            
+                <form action="/signup" class="homepage-button">
+                    <input type="submit" value = "Sign Up" class = 'specialfont'>
+                </form>
+                </div>
+            {% endif %}
+        </nav>    
+
+        {% block content %}
+
+        {% if no_user_id %}
+        <div class = "homepage_body">
+            <h2 class = 'invalid'>Please log in or sign up.</h2>
+            <img src="/static/possum.jpg" alt="Positive possum believes you can do the thing!" id = "possum">
+        </div>
+        {% endif %}
+            
+
         {% if user_id %}
-        <div class = "homepage_button">
-            <form action="/add_friends">
-            <input type="submit" value = "Add Friends" class = 'specialfont'>
-            </form>
-  
-            <form action="/log_out">
-            <input type="submit" value = "Log Out" class = 'specialfont'>
+        <div class = "homepage_body">
+            <section id="check-up">
+                <form action="/your_friends">
+                    <input type="submit" value = "Check Up On Your Friends!" class = 'specialfont'>
+                </form>
+            </section>
+
+            <section>
+                {% for goal in goals %}
+                <p class="goal"><a href="/edit/{{goal.id}}">{{goal.goal_content}}</a></p>
+            
+                {% if goal.who_nudged %}
+                <p>{{goal.who_nudged}} nudged you!</p>
+                {% else %}
+                <p> </p>
+                {% endif %}
+        
+                {% endfor %}
+            </section>
+        </div>
+
+        <div class="footer" >
+            <form action="/add_goal_action" method = 'POST' id="add-goal-form">
+                Add a new goal:<input type="text" name = "newgoal" id = "newgoal" required>
+                <input type="submit" class = 'specialfont'>
             </form>
         </div>
-    </nav>
-
-    {% else %}
-    <div class = "homepage_button">
-    <form action="/log_in">
-        <input type="submit" value = "Log In" class = 'specialfont'>
-    </form>
-
-      <form action="/signup">
-        <input type="submit" value = "Sign Up" class = 'specialfont'>
-    </form>
-    </div>
-
-    <div class = "homepage_body">
-        <h2 class = 'invalid'>Please log in or sign up.</h2>
-        <img src="/static/possum.jpg" alt="Positive possum believes you can do the thing!" id = "possum">
-    </div>
-
-    {% endif %}
-
-    {% block content %}
-
-    {% if user_id %}
-    <form action="/your_friends">
-        <input type="submit" value = "Check Up On Your Friends!" class = 'specialfont'>
-    </form>
-
-    <section class = "goals">
-        {% for goal in goals %}
-        <p><a href="/edit/{{goal.id}}" class = 'specialfont'>{{goal.goal_content}}</a></p>
-       
-        {% if goal.who_nudged %}
-        <p>{{goal.who_nudged}} nudged you!</p>
-        {% else %}
-        <p> </p>
+        
         {% endif %}
-   
-        {% endfor %}
-    
-    </section>
-   
-    <div class = "homepage_button">
-        <form action="/add_goal_action" method = 'POST'>
-            Add a new goal: <input type="text" name = "newgoal" id = "newgoal" required> <br>
-            <input type="submit" class = 'specialfont'>
-        </form>
-    </div>
-     
-    {% endif %}
 
-    {% endblock %}
+        {% endblock %}
+    </main> 
 </body>
 </html>

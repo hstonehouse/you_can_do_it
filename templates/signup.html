@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<h3 class = 'specialfont'>Sign Up</h3>
-<form action="/signup_action" method="POST">
-    Email: <input type="text" name = "email" required><br>
-    Name: <input type="text" name = "username" required><br>
-    Password: <input type="password" name = "password" required><br>
-    Confirm Password: <input type="password" name = "confirm_password" required><br>
-    <input type="submit" value = "Register" class = 'specialfont'>
-</form>
+<h3 class='specialfont' id="subheader">Sign Up</h3>
+    <div class="form">
+        <form action="/signup_action" method="POST" id="signup-form">
+            <div ><input type="text" name="email" class="label" value="Email" required></div>
+            <div><input type="text" name="username" class="label" value="Name" required></div>
+            <div><input type="password" name="password" class="label" placeholder="Password" required></div>
+            <div><input type="password" name = "confirm_password" class="label" placeholder= "Confirm Password" required></div>
+            <input type="submit" value="Register" class="label, specialfont">
+        </form>
+    </div>
 {% if mismatch %}
-    <p class = invalid>Your passwords do not match.</p>
+        <p class = invalid>Your passwords do not match.</p>
 {% endif %}
 
 {% endblock  %}

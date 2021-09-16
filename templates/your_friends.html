@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+<p class = 'specialfont'>{{name}}'s Friends</p>
 {% for friend in friend_names %}
 
 <form action="/goals/{{friend.id}}">

@@ -1,17 +1,34 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: futura;
+}
+
 nav {
     display: grid;
-    grid-template-columns: 60% 20%;
+    grid-template-columns: 80% 20%;
+}
+
+.homepage_body {
+    min-height: 50vh;
 }
 
 h1 {
     font-size: 80px;
     font-family: 'Amatic SC', cursive;
     text-align: center;
-    margin-left: 300px;
+    margin-left: 264px;
 }
 
-h2 {
+h2, .goal {
     text-align: center;
+}
+
+#check-up {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
 }
 
 .specialfont {
@@ -19,9 +36,18 @@ h2 {
     font-size: 30px;
 }
 
-.homepage_button {
+.footer {
+    margin: auto;
+    width: 30%;
+}
+
+.homepage-button-div {
     display: flex;
     margin-top: 95px;
+}
+
+.homepage-button {
+    margin-right: 15px;
 }
 
 #possum {
@@ -31,15 +57,92 @@ h2 {
     margin-right: auto;
 }
 
-form {
-    margin-right: 10px;
-}
-
 .invalid {
     color: red;
+    text-align: center;
 }
 
 a {
     text-decoration: none;
+    color: white;
 }
 
+#subheader {
+    text-align: center;
+    font-size: 50px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+}
+
+#login-form .label {
+    display: inline-block;
+    width: 71px;
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 10px
+}
+
+#login-form > input {
+    margin-top: 23px;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+#signup-form .label {
+    font-family: futura;
+    color: rgb(106, 106, 106);
+    padding: 5px 0px 5px 10px;
+    width: 200px;
+    margin-top: 10px;
+}
+
+#signup-form > input {
+    margin-top: 23px;
+    padding-left: 72px;
+    padding-right: 72px;
+}
+
+#add-goal-form > input {
+    margin-top: 23px;
+    margin-left: 5px
+}
+
+#edit-goal-form, #delete-nudge-form {
+    margin-bottom: 20px;
+}
+
+#edit-goal .label, #delete-nudge .label {
+    display: inline-block;
+    text-align: right;
+    font-size: 20px;
+    padding-right: 8px;
+}
+
+#edit-goal-content {
+    width: 270px;
+    padding: 5px 0px 5px 5px;
+    font-size: 15px;
+}
+
+#delete-nudge-content {
+    padding: 5px 0px 5px 5px;
+    font-size: 15px;
+}
+
+#update-button, #delete-nudge-button {
+    padding: 5px;
+    font-size: 15px
+}
+
+#delete-goal-form {
+    margin-top: 80px;
+}
+
+#delete-goal-button {
+    padding-left: 100px;
+    padding-right: 100px;
+    color: red;
+}

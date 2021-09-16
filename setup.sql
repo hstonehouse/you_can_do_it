@@ -5,6 +5,7 @@ CREATE TABLE users (
 CREATE TABLE friendships (
     friend1_id INTEGER, 
     friend2_id INTEGER,
+    PRIMARY KEY (friend1_id, friend2_id),
     CONSTRAINT fk_friendships_friend1_id
         FOREIGN KEY(friend1_id)
         REFERENCES users(id),
