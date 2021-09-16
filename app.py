@@ -120,15 +120,17 @@ def add_friend_page():
 def add_friend_action():
     user_id = session.get('user_id')
     friend_email = request.form.get('new_friend')
-    friend_id = sql_select("SELECT id FROM users WHERE email LIKE %s", [friend_email])[0]
-    if friend_id and user_id:
-        sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [user_id, friend_id])
-        sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [friend_id, user_id])
-        return redirect('/your_friends')
-    else:
+    friend_id = sql_select("SELECT id FROM users WHERE email LIKE %s", [friend_email])[0][0]
+    
+    if str(friend_id) == str(user_id) or not friend_id:
         user_id = session.get('user_id')
         invalid_email = True
         return render_template('/add_friends.html', invalid_email = invalid_email, user_id = user_id)
+    else:
+        sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [user_id, friend_id])
+        sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [friend_id, user_id])
+        return redirect('/your_friends')
+    
 
 @app.route('/your_friends')
 def your_friends():

@@ -2,16 +2,17 @@
 {% block content %}
 
 {% if invalid_email %}
-    <p class = 'invalid'>We couldn't find that friend. Please try again.</p>
+    <p class="invalid">We couldn't find that friend. Please try again.</p>
 {% endif %}
 {% if user_id %}
-<form action="/add_friend_action" method = 'POST'>
-    Enter friend's email: <input type="text" name = "new_friend" id = "new_friend" required> <br>
-    <input type="submit" class = 'specialfont'>
-</form>
-
+<div class="form">
+    <form action="/add_friend_action" method = 'POST' id="add-friend-form">
+        <span class="label">Enter friend's email:</span><input type="text" name="new_friend" id="new-friend" required> <br>
+        <input type="submit" class="specialfont">
+    </form>
+</div>
 {% else %}
-<p class = 'specialfont'>Please log in or sign up to add a friend.</p>
+<p class="specialfont, invalid">Please log in or sign up to add a friend.</p>
 
 {% endif %}
 
