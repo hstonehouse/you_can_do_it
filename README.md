@@ -1,9 +1,7 @@
 # Heroku Link
----
 [You Can Do It App](https://youcandoit-app.herokuapp.com/)
 
 # YOU CAN DO IT!
----
 We are more likely to achieve our goals when we have an accountability buddy.
 
 This app is designed to share your goals with your friends so that they can act as an accountability buddy and help you achieve those goals!
@@ -12,7 +10,6 @@ Create an account, list your goals, add your friends, and see each other's goals
 
 
 # INSTALLATION
----
 Create a virtual environment:
 
     python -m venv nameofvenv
@@ -28,9 +25,8 @@ Please install it by running the following code:
 
 
 # Future Improvements
----
 Things I'd like to add:
-    - Ability to prioritise your goals
-    - A drop down menu to sort your goals by different parameters (ascending, descending, priority)
-    - Option to delete a friend
-    - Use JavaScript to incorporate notifications when someone nudges a goal
+- Ability to prioritise your goals
+- A drop down menu to sort your goals by different parameters (ascending, descending, priority)
+- Option to delete a friend
+- Use JavaScript to incorporate notifications when someone nudges a goal
