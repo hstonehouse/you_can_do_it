@@ -1,16 +1,20 @@
 {% extends "base.html" %}
+
 {% block content %}
 
+<h2 class="specialfont" id="subheader">{{friend_name}}'s Goals</h2>
 
 {% for goal in friend_goals %}
-<p class = 'specialfont'>{{goal.goal_content}}</p>
+<div class="form">
+    <p class="goal-content">{{goal.goal_content}}</p>
+    <form action="/goals/{{friend_id}}/{{goal.id}}/nudge" method="POST">
+        <input type="submit" value = "Nudge!" class="specialfont" id="nudge-button">
+    </form>
+    {% if goal.who_nudged %}
+    <p class="yellow">{{goal.who_nudged}} nudged!</p>
+    {% endif %}
 
-{% if goal.who_nudged %}
-<p>{{goal.who_nudged}} nudged!</p>
-{% endif %}
-<form action="/goals/{{friend_id}}/{{goal.id}}/nudge" method = "POST">
-    <input type="submit" value = "Nudge!" class = 'specialfont'>
-</form>
+</div>
 
 {% endfor %}
 

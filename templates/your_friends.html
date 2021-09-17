@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-<p class = 'specialfont'>{{name}}'s Friends</p>
+<h2 class="specialfont" id="subheader">{{name}}'s Friends</h2>
+
 {% for friend in friend_names %}
 
-<form action="/goals/{{friend.id}}">
-    <a href="/goals/{{friend.id}}" class = 'specialfont'>{{friend.name}}</a>
+<form action="/goals/{{friend.id}}" class="form" id="friend">
+    <a href="/goals/{{friend.id}}">{{friend.name}}</a>
     <input type="hidden" name = "id" value = {{friend.id}}>
 </form>
 

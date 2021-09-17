@@ -12,9 +12,13 @@
 </head>
 <body>
     <main>
-        <nav>
-            <h1>You Can Do It!</h1>
-            
+        <nav> 
+            {% if user_id %} 
+            <h1><a href="/">You Can Do It, {{name}}!</a></h1>
+            {% else %}
+            <h1><a href="/">You Can Do It!</a></h1>
+            {% endif %}
+
             {% if user_id %}
             <div class = "homepage-button-div">
                 <form action="/add_friends" class="homepage-button">
@@ -58,7 +62,7 @@
 
             <section>
                 {% for goal in goals %}
-                <p class="goal"><a href="/edit/{{goal.id}}">{{goal.goal_content}}</a>
+                <p class="goal"><a href="/edit/{{goal.id}}" class="goal-content">{{goal.goal_content}}</a>
                     {% if goal.who_nudged %}
                     <span class="yellow">{{goal.who_nudged}} nudged you!</span>
                     {% else %}

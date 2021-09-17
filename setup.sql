@@ -1,3 +1,5 @@
+createdb accountability_db
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name TEXT, email TEXT, password_hash TEXT);

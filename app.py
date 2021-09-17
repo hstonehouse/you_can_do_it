@@ -15,7 +15,8 @@ def index():
     user_id = session.get('user_id')
     if user_id:
         goals = all_goals(user_id)
-        return render_template('base.html', user_id = user_id, goals = goals)
+        name = my_name(user_id)
+        return render_template('base.html', user_id = user_id, goals = goals, name = name)
     if not user_id:
         no_user_id = True
         return render_template('base.html', no_user_id = no_user_id)
@@ -75,10 +76,11 @@ def log_in_action():
 @app.route('/edit/<id>')
 def edit_goal(id):
     user_id = session.get('user_id') # I also need this in order for the 'global' buttons to show up (add friend, log out)
+    name = my_name(user_id)
     if not user_id:
         return redirect('/')
     goal = one_goal(id)
-    return render_template('edit_goal.html', user_id = user_id, goal_id = id, goal = goal)
+    return render_template('edit_goal.html', user_id = user_id, goal_id = id, goal = goal, name = name)
 
 @app.route('/save_goal_edits', methods=['POST'])
 def save_goal_edits():
@@ -113,20 +115,28 @@ def add_new_goal():
 @app.route('/add_friends')
 def add_friend_page():
     user_id = session.get('user_id')
+    name = my_name(user_id)
     invalid_email = False
-    return render_template('add_friends.html', user_id = user_id, invalid_email = invalid_email)
+    return render_template('add_friends.html', user_id = user_id, invalid_email = invalid_email, name = name)
 
 @app.route('/add_friend_action', methods=['POST'])
 def add_friend_action():
     user_id = session.get('user_id')
+    name = my_name(user_id)
     friend_email = request.form.get('new_friend')
-    friend_id = sql_select("SELECT id FROM users WHERE email LIKE %s", [friend_email])[0][0]
+    friend_id_result = sql_select("SELECT id FROM users WHERE email LIKE %s", [friend_email])
     
-    if str(friend_id) == str(user_id) or not friend_id:
+    if not friend_id_result:
         user_id = session.get('user_id')
         invalid_email = True
-        return render_template('/add_friends.html', invalid_email = invalid_email, user_id = user_id)
+        return render_template('/add_friends.html', invalid_email = invalid_email, user_id = user_id, name = name)
     else:
+        friend_id = friend_id_result[0][0]
+        if str(friend_id) == str(user_id):
+            user_id = session.get('user_id')
+            invalid_email = True
+            return render_template('/add_friends.html', invalid_email = invalid_email, user_id = user_id, name = name)
+
         sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [user_id, friend_id])
         sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [friend_id, user_id])
         return redirect('/your_friends')
@@ -145,13 +155,15 @@ def your_friends():
 @app.route('/goals/<friend_id>/')
 def show_friends_goals(friend_id):
     user_id = session.get('user_id')
+    name = my_name(user_id)
+    friend_name = my_name(friend_id)
     if not user_id:
         return redirect('/')
     if str(user_id) == friend_id: # You can't be friends with yourself and nudge your own goals
         return redirect('/')
     else:
         friend_goals = all_goals(friend_id)        
-        return render_template('friend_goals.html', user_id = user_id, friend_goals = friend_goals, friend_id = friend_id)
+        return render_template('friend_goals.html', user_id = user_id, friend_goals = friend_goals, friend_id = friend_id, name = name, friend_name = friend_name)
 
 @app.route('/goals/<friend_id>/<goal_id>/nudge', methods = ['POST'])
 def nudge(friend_id, goal_id):

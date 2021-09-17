@@ -17,7 +17,7 @@ h1 {
     font-size: 80px;
     font-family: 'Amatic SC', cursive;
     text-align: center;
-    margin-left: 264px;
+    margin-left: 332px;
 }
 
 h2, .goal {
@@ -35,14 +35,18 @@ h2, .goal {
     color: yellow;
 }
 
+.goal-content {
+    margin-right: 15px;
+}
+
 .specialfont {
     font-family: 'Amatic SC', cursive;
     font-size: 30px;
 }
 
 .footer {
-    margin: auto;
-    width: 30%;
+    display: flex;
+    justify-content: center;
 }
 
 .homepage-button-div {
@@ -157,4 +161,17 @@ a {
 
 #add-friend-button {
     padding: 0px 100px;
+}
+
+#nudge-button {
+    margin-right: 10px;
+    font-size: 25px
+}
+
+#friend {
+    margin-bottom: 10px
+}
+
+#friend > a {
+    font-size: 20px;
 }
