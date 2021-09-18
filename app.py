@@ -15,8 +15,9 @@ def index():
     user_id = session.get('user_id')
     if user_id:
         goals = all_goals(user_id)
+        empty = len(goals) == 0
         name = my_name(user_id)
-        return render_template('base.html', user_id = user_id, goals = goals, name = name)
+        return render_template('base.html', user_id = user_id, goals = goals, name = name, empty = empty)
     if not user_id:
         no_user_id = True
         return render_template('base.html', no_user_id = no_user_id)

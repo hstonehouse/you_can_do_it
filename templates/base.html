@@ -61,6 +61,11 @@
             </section>
 
             <section>
+                {% if empty %}
+                <p class="text-center">No goals yet! Add one below.</p>
+                {% else%}
+                <h2 class="specialfont">Your Goals</h2>
+                {% endif %}
                 {% for goal in goals %}
                 <p class="goal"><a href="/edit/{{goal.id}}" class="goal-content">{{goal.goal_content}}</a>
                     {% if goal.who_nudged %}
