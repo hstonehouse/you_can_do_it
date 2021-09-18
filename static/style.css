@@ -31,6 +31,17 @@ h2, .goal {
     justify-content: center;
 }
 
+#check-up-button {
+    background-color: orangered;
+    padding: 10px 20px;
+}
+
+#check-up-button:hover {
+    background-color: white;
+    color: red;
+    font-size: 35px;
+}
+
 .yellow {
     color: yellow;
 }
