@@ -86,7 +86,7 @@ def edit_goal(id):
 def save_goal_edits():
     goal_content = request.form.get('goal_content')
     goal_id = request.form.get('goal_id')
-    sql_write("UPDATE goals SET goal = %s WHERE id = %s", [goal_content, goal_id])
+    sql_write("UPDATE goals SET goal = %s, nudged_by = NULL WHERE id = %s", [goal_content, goal_id])
     return redirect('/')
 
 @app.route('/delete_nudge/<id>', methods=['POST'])
