@@ -8,8 +8,12 @@ This app is designed to share your goals with your friends so that they can act 
 
 Create an account, list your goals, add your friends, and see each other's goals. Click on the 'nudge' button next to your friend's goal to remind them to work on that goal.
 
+# Tech Stack
+- HTML/CSS
+- Python/Flask
+- postgreSQL
 
-# Installation
+# Installation (Python)
 Create a virtual environment:
 
     python -m venv nameofvenv
@@ -23,6 +27,13 @@ Please install it by running the following code:
 
     pip install -r requirements.txt    
 
+To run the app, paste this in your terminal:
+
+    python app.py
+
+# Installation (Database)
+1. Open the setup.sql file
+2. Copy and paste the 2 steps in your terminal
 
 # Future Improvements
 Things I'd like to add:
@@ -32,3 +43,5 @@ Things I'd like to add:
 - Option to undo your nudge
 - JavaScript to incorporate notifications when someone nudges a goal
 - Fix the code so that you cannot add the same friend more than once
+- Option to 'tick off' your goal, and have that move to a section called 'Accomplished Goals'
+- Have some sort of animation appear when you tick off a goal
