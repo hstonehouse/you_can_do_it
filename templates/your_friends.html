@@ -3,6 +3,11 @@
 
 <h2 class="specialfont" id="subheader">{{name}}'s Friends</h2>
 
+{% if no_friends %}
+<p class="invalid">Please add a friend.</p>
+
+{% else %}
+
 {% for friend in friend_names %}
 
 <form action="/goals/{{friend.id}}" class="form" id="friend">
@@ -11,5 +16,7 @@
 </form>
 
 {% endfor %}
+
+{% endif %}
 
 {% endblock content %}

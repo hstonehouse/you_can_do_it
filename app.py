@@ -12,6 +12,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "pretend key for testing only")
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 
+# Home
 @app.route('/')
 def index():
     user_id = session.get('user_id')
@@ -24,6 +25,7 @@ def index():
         no_user_id = True
         return render_template('base.html', no_user_id = no_user_id)
 
+# Sign Up
 @app.route('/signup')
 def signup():
     user_id = session.get('user_id')
@@ -46,6 +48,7 @@ def signup_action():
         mismatch = True
         return render_template('signup.html', mismatch = mismatch)
 
+# Log In and Out
 @app.route('/log_out')
 def log_out():
     del session['user_id']
@@ -76,6 +79,7 @@ def log_in_action():
     invalid_user = True
     return render_template('login.html', invalid_user = invalid_user)
 
+# Edit and Delete Goals
 @app.route('/edit/<id>')
 def edit_goal(id):
     user_id = session.get('user_id') # I also need this in order for the 'global' buttons to show up (add friend, log out)
@@ -108,6 +112,7 @@ def delete_goal(id):
     sql_write("DELETE FROM goals WHERE id = %s", [id])
     return redirect('/')
 
+# Add a New Goal
 @app.route('/add_goal_action', methods=['POST'])
 def add_new_goal():
     user_id = session.get('user_id')
@@ -115,6 +120,7 @@ def add_new_goal():
     sql_write("INSERT INTO goals (user_id, goal) VALUES (%s, %s)", [user_id, goal_content])
     return redirect('/')
 
+# Add Friends
 @app.route('/add_friends')
 def add_friend_page():
     user_id = session.get('user_id')
@@ -144,7 +150,7 @@ def add_friend_action():
         sql_write("INSERT INTO friendships (friend1_id, friend2_id) VALUES (%s, %s)", [friend_id, user_id])
         return redirect('/your_friends')
     
-
+# Display Your Friends and Their Goals
 @app.route('/your_friends')
 def your_friends():
     user_id = session.get('user_id')
@@ -153,7 +159,13 @@ def your_friends():
         return redirect('/')
     else:
         friend_names = all_friends(user_id)
-        return render_template('your_friends.html', friend_names = friend_names, user_id = user_id, name = name)
+        no_friends = False
+        if friend_names:
+            no_friends = False
+            return render_template('your_friends.html', friend_names = friend_names, user_id = user_id, name = name, no_friends = no_friends)
+        else:
+            no_friends = True
+            return render_template('your_friends.html', user_id = user_id, name = name, no_friends = no_friends)
 
 @app.route('/goals/<friend_id>/')
 def show_friends_goals(friend_id):
@@ -168,6 +180,7 @@ def show_friends_goals(friend_id):
         friend_goals = all_goals(friend_id)        
         return render_template('friend_goals.html', user_id = user_id, friend_goals = friend_goals, friend_id = friend_id, name = name, friend_name = friend_name)
 
+# Nudge Your Friend's Goal
 @app.route('/goals/<friend_id>/<goal_id>/nudge', methods = ['POST'])
 def nudge(friend_id, goal_id):
     user_id = session.get('user_id')
