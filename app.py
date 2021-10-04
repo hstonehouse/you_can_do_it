@@ -2,13 +2,15 @@ from flask import Flask, render_template, request, redirect, session
 from database import sql_select, sql_write
 import psycopg2
 import bcrypt
+import os
 
 from models.goal import all_goals, one_goal
 from models.friend import all_friends
 from models.name import my_name
 
+SECRET_KEY = os.environ.get("SECRET_KEY", "pretend key for testing only")
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'String for testing purposes'
+app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/')
 def index():
