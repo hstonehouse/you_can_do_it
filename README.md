@@ -31,6 +31,8 @@ To run the app, paste this in your terminal:
 
     python app.py
 
+Note: the Procfile is only needed if you are deploying to Heroku.
+
 # Installation (Database)
 1. Open the setup.sql file
 2. Copy and paste the 2 steps in your terminal
